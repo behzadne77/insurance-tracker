@@ -1,0 +1,51 @@
+@font-face {
+  font-family: "irsansb";
+  src: url('../fonts/IRANSansWeb_Light.woff2') format('woff2'); /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "IranSans";
+  src: url('../fonts/iransans/IRANSansWeb.ttf') format('truetype'); /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  font-display: swap;
+}
+@font-face {
+  font-family: "IranSans-Black";
+  src: url('../fonts/iransans/IRANSansWeb_Black.ttf') format('truetype'); /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  font-display: swap;
+}
+@font-face {
+  font-family: "IranSans-Bold";
+  src: url('../fonts/iransans/IRANSansWeb_Bold.ttf') format('truetype'); /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  font-display: swap;
+}
+@font-face {
+  font-family: "IranSans-Medium";
+  src: url('../fonts/iransans/IRANSansWeb_Medium.ttf') format('truetype'); /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  font-display: swap;
+}
+@font-face {
+  font-family: "IranSans-UltraLight";
+  src: url('../fonts/iransans/IRANSansWeb_UltraLight.ttf') format('truetype'); /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  font-display: swap;
+}
+
+*{
+  font-family: IranSans;
+  font-size: 14px;
+}
+.iransans-bold{
+  font-family: IranSans-Bold;
+}
+.iransans-black{
+  font-family: IranSans-Black;
+}
+.iransans-Medium{
+  font-family: IranSans-Medium;
+}
+.iransans-UltraLight{
+  font-family: IranSans-UltraLight;
+}
+/* *{
+  font-family: irsansb;
+} */
