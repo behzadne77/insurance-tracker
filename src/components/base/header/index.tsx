@@ -37,8 +37,8 @@ export default function BaseHeader() {
           
           {isAuthenticated ? (
             <>
-              <Link href="/reminders" className="text-gray-700 hover:text-primary font-medium flex items-center gap-2">
-                <FileTextOutlined /> یادآوری‌ها
+              <Link href="/insurance" className="text-gray-700 hover:text-primary font-medium flex items-center gap-2">
+                <FileTextOutlined /> بیمه‌ها
               </Link>
               <Dropdown
                 menu={{ items: userMenuItems }}

@@ -38,8 +38,10 @@ export default function HomePage() {
               مدیریت هوشمند بیمه‌های شخصی شما. دیگر نگران فراموش کردن تاریخ انقضای بیمه‌هایتان نباشید.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <BaseButton size="large">افزودن یادآوری جدید</BaseButton>
-              <BaseButton variant="outline" size="large">مشاهده یادآوری‌ها</BaseButton>
+              <Link href="/insurance">
+                <BaseButton type="primary" size="large">مدیریت بیمه‌ها</BaseButton>
+              </Link>
+              <BaseButton type="default" size="large">افزودن یادآوری جدید</BaseButton>
             </div>
           </section>
         ) : (

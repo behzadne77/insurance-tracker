@@ -81,5 +81,92 @@ export const authMessages = {
     userExists: 'کاربری با این ایمیل قبلاً ثبت‌نام کرده است.',
     googleComingSoon: 'ثبت‌نام با گوگل در حال توسعه...',
     githubComingSoon: 'ثبت‌نام با گیت‌هاب در حال توسعه...'
+  },
+  // Insurance related messages
+  insurance: {
+    title: 'مدیریت بیمه‌ها',
+    addNew: 'افزودن بیمه جدید',
+    noInsurances: 'هیچ بیمه‌ای یافت نشد',
+    addFirst: 'اولین بیمه خود را اضافه کنید',
+    
+    // Form fields
+    form: {
+      name: {
+        label: 'نام بیمه',
+        placeholder: 'مثال: بیمه شخص ثالث خودرو',
+        required: 'لطفاً نام بیمه را وارد کنید'
+      },
+      type: {
+        label: 'نوع بیمه',
+        placeholder: 'نوع بیمه را انتخاب کنید',
+        required: 'لطفاً نوع بیمه را انتخاب کنید'
+      },
+      startDate: {
+        label: 'تاریخ شروع بیمه',
+        required: 'لطفاً تاریخ شروع بیمه را وارد کنید'
+      },
+      endDate: {
+        label: 'تاریخ پایان بیمه',
+        required: 'لطفاً تاریخ پایان بیمه را وارد کنید'
+      },
+      paymentType: {
+        label: 'نوع پرداخت',
+        lump: 'یکجا',
+        installment: 'اقساط'
+      },
+      totalAmount: {
+        label: 'مبلغ کل',
+        placeholder: 'مبلغ کل بیمه را وارد کنید',
+        required: 'لطفاً مبلغ کل را وارد کنید'
+      },
+      installments: {
+        label: 'اطلاعات اقساط',
+        numberOfInstallments: {
+          label: 'تعداد اقساط',
+          placeholder: 'تعداد اقساط را وارد کنید',
+          required: 'لطفاً تعداد اقساط را وارد کنید'
+        },
+        amountPerInstallment: {
+          label: 'مبلغ هر قسط',
+          placeholder: 'مبلغ هر قسط را وارد کنید',
+          required: 'لطفاً مبلغ هر قسط را وارد کنید'
+        },
+        startDate: {
+          label: 'تاریخ شروع اقساط',
+          required: 'لطفاً تاریخ شروع اقساط را وارد کنید'
+        }
+      }
+    },
+    
+    // Actions
+    actions: {
+      add: 'افزودن بیمه',
+      edit: 'ویرایش',
+      delete: 'حذف',
+      view: 'مشاهده جزئیات'
+    },
+    
+    // Messages
+    success: {
+      added: 'بیمه با موفقیت اضافه شد',
+      updated: 'بیمه با موفقیت به‌روزرسانی شد',
+      deleted: 'بیمه با موفقیت حذف شد'
+    },
+    error: {
+      add: 'خطا در افزودن بیمه',
+      update: 'خطا در به‌روزرسانی بیمه',
+      delete: 'خطا در حذف بیمه'
+    },
+    
+    // Insurance types
+    types: {
+      car: 'خودرو',
+      life: 'عمر',
+      home: 'خانه',
+      health: 'سلامت',
+      travel: 'مسافرت',
+      business: 'کسب و کار',
+      other: 'سایر'
+    }
   }
 }; 

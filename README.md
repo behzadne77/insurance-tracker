@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# یادآور بیمه - مدیریت هوشمند بیمه‌های شخصی
 
-## Getting Started
+پروژه‌ای برای مدیریت و یادآوری تاریخ انقضای بیمه‌های شخصی با استفاده از Next.js، TypeScript و Ant Design.
 
-First, run the development server:
+## ویژگی‌ها
+
+- 🔐 سیستم احراز هویت کامل
+- 📋 مدیریت بیمه‌های مختلف (خودرو، عمر، خانه و...)
+- 💰 پشتیبانی از پرداخت یکجا و اقساط
+- 📅 یادآوری تاریخ انقضای بیمه‌ها
+- 📱 طراحی پاسخگو
+- 🌐 رابط کاربری فارسی
+
+## تکنولوژی‌های استفاده شده
+
+- **Frontend**: Next.js 15, React 19, TypeScript
+- **UI Library**: Ant Design
+- **Styling**: Tailwind CSS
+- **State Management**: React Context API
+- **Storage**: LocalStorage
+
+## نصب و اجرا
 
 ```bash
+# نصب وابستگی‌ها
+npm install
+
+# اجرای محیط توسعه
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# ساخت نسخه تولید
+npm run build
+
+# اجرای نسخه تولید
+npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ساختار پروژه
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+src/
+├── app/                 # صفحات Next.js
+├── components/          # کامپوننت‌های React
+│   ├── base/           # کامپوننت‌های پایه
+│   ├── insurance/      # کامپوننت‌های بیمه
+│   └── page/           # صفحات اصلی
+├── hooks/              # Custom Hooks
+├── types/              # تعاریف TypeScript
+└── utils/              # توابع کمکی
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## انتشار روی GitHub Pages
 
-## Learn More
+این پروژه برای انتشار روی GitHub Pages بهینه‌سازی شده است.
 
-To learn more about Next.js, take a look at the following resources:
+### مراحل انتشار:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. پروژه را در GitHub push کنید
+2. در تنظیمات repository، GitHub Pages را فعال کنید
+3. Source را روی `gh-pages` branch تنظیم کنید
+4. پروژه در آدرس `https://username.github.io/Bime` قابل دسترسی خواهد بود
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## مشارکت
 
-## Deploy on Vercel
+برای مشارکت در پروژه:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. پروژه را fork کنید
+2. یک branch جدید ایجاد کنید
+3. تغییرات خود را commit کنید
+4. Pull Request ارسال کنید
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## لایسنس
+
+این پروژه تحت لایسنس MIT منتشر شده است.
