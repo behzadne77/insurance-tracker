@@ -37,13 +37,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       try {
         setUser(JSON.parse(savedUser));
       } catch (error) {
+        console.log(error)
         localStorage.removeItem('user');
       }
     }
     setLoading(false);
   }, []);
 
-  const login = async (email: string, password: string): Promise<boolean> => {
+  const login = async (email: string): Promise<boolean> => {
     try {
       setLoading(true);
       

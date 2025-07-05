@@ -37,7 +37,8 @@ export default function RegisterPage() {
       } else {
         message.error(authMessages.register.userExists);
       }
-    } catch (error) {
+    } catch(e) {
+      console.log(e)
       message.error(authMessages.register.error);
     }
   };

@@ -28,7 +28,8 @@ export default function LoginPage() {
       } else {
         message.error(authMessages.login.error);
       }
-    } catch (error) {
+    } catch (e) {
+      console.log(e)
       message.error(authMessages.login.error);
     }
   };
