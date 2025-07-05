@@ -60,7 +60,7 @@ export default function HomePage() {
                 </BaseButton>
               </Link>
               <Link href="/auth/register">
-                <BaseButton variant="outline" size="large" icon={<UserAddOutlined />}>
+                <BaseButton type="default" size="large" icon={<UserAddOutlined />}>
                   ثبت‌نام کنید
                 </BaseButton>
               </Link>

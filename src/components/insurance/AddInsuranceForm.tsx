@@ -1,10 +1,9 @@
 "use client";
 import React, { useState } from 'react';
 import { Form, Input, Select, DatePicker, InputNumber, Button, Card, Divider } from 'antd';
-import { PlusOutlined, CalendarOutlined, DollarOutlined } from '@ant-design/icons';
-import { CreateInsuranceData, InsuranceType, PaymentType } from '@/types/insurance';
+import { PlusOutlined, } from '@ant-design/icons';
+import { CreateInsuranceData, PaymentType } from '@/types/insurance';
 import { authMessages } from '@/utils/messages';
-import dayjs from 'dayjs';
 
 interface AddInsuranceFormProps {
   onSubmit: (data: CreateInsuranceData) => void;
@@ -160,7 +159,6 @@ export default function AddInsuranceForm({ onSubmit, loading = false }: AddInsur
               className="w-full rounded-lg"
               placeholder={authMessages.insurance.form.totalAmount.placeholder}
               formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-              parser={(value) => value!.replace(/\$\s?|(,*)/g, '')}
               min={0}
               addonAfter="تومان"
             />
@@ -202,7 +200,6 @@ export default function AddInsuranceForm({ onSubmit, loading = false }: AddInsur
                   placeholder={authMessages.insurance.form.installments.amountPerInstallment.placeholder}
                   min={0}
                   formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                  parser={(value) => value!.replace(/\$\s?|(,*)/g, '')}
                   addonAfter="تومان"
                 />
               </Form.Item>

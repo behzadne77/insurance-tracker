@@ -1,6 +1,6 @@
 "use client";
 import React from 'react';
-import { Card, Tag, Button, Space, Tooltip } from 'antd';
+import { Card, Tag, Button, Tooltip } from 'antd';
 import { EditOutlined, DeleteOutlined, EyeOutlined, CalendarOutlined, DollarOutlined } from '@ant-design/icons';
 import { Insurance } from '@/types/insurance';
 import { authMessages } from '@/utils/messages';
@@ -47,21 +47,21 @@ export default function InsuranceCard({ insurance, onEdit, onDelete, onView }: I
     <Card
       className="mb-4 hover:shadow-lg transition-shadow"
       actions={[
-        <Tooltip title="مشاهده جزئیات">
+        <Tooltip title="مشاهده جزئیات" key={insurance.id}>
           <Button 
             type="text" 
             icon={<EyeOutlined />} 
             onClick={() => onView(insurance)}
           />
         </Tooltip>,
-        <Tooltip title="ویرایش">
+        <Tooltip title="ویرایش" key={insurance.id}>
           <Button 
             type="text" 
             icon={<EditOutlined />} 
             onClick={() => onEdit(insurance)}
           />
         </Tooltip>,
-        <Tooltip title="حذف">
+        <Tooltip title="حذف" key={insurance.id}>
           <Button 
             type="text" 
             danger 

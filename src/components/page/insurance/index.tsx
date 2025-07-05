@@ -14,7 +14,6 @@ export default function InsurancePage() {
   const [insurances, setInsurances] = useState<Insurance[]>([]);
   const [loading, setLoading] = useState(false);
   const [showForm, setShowForm] = useState(false);
-  const [selectedInsurance, setSelectedInsurance] = useState<Insurance | null>(null);
 
   // Load insurances from localStorage
   useEffect(() => {
@@ -66,6 +65,7 @@ export default function InsurancePage() {
       message.success(authMessages.insurance.success.added);
       setShowForm(false);
     } catch (error) {
+      console.log(error)
       message.error(authMessages.insurance.error.add);
     } finally {
       setLoading(false);
