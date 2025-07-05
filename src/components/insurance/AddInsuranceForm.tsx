@@ -16,7 +16,7 @@ export default function AddInsuranceForm({ onSubmit, loading = false }: AddInsur
   const [form] = Form.useForm();
   const [paymentType, setPaymentType] = useState<PaymentType>('lump');
 
-  const handleSubmit = (values: any) => {
+  const handleSubmit = (values: Record<string, any>) => {
     const formData: CreateInsuranceData = {
       name: values.name,
       type: values.type,

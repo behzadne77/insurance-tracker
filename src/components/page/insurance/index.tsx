@@ -73,7 +73,8 @@ export default function InsurancePage() {
   };
 
   const handleEditInsurance = (insurance: Insurance) => {
-    setSelectedInsurance(insurance);
+    // TODO: Implement edit functionality
+    console.log('Edit insurance:', insurance);
     setShowForm(true);
   };
 
