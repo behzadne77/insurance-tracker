@@ -2,12 +2,24 @@
 import React, { useState } from 'react';
 import { Form, Input, Select, DatePicker, InputNumber, Button, Card, Divider } from 'antd';
 import { PlusOutlined, } from '@ant-design/icons';
-import { CreateInsuranceData, PaymentType } from '@/types/insurance';
+import { CreateInsuranceData, PaymentType, InsuranceType } from '@/types/insurance';
 import { authMessages } from '@/utils/messages';
 
 interface AddInsuranceFormProps {
   onSubmit: (data: CreateInsuranceData) => void;
   loading?: boolean;
+}
+
+interface FormValues {
+  name: string;
+  type: InsuranceType;
+  startDate: any; // dayjs object
+  endDate: any; // dayjs object
+  paymentType: PaymentType;
+  totalAmount: number;
+  numberOfInstallments?: number;
+  amountPerInstallment?: number;
+  installmentStartDate?: any; // dayjs object
 }
 
 const { Option } = Select;
@@ -16,7 +28,7 @@ export default function AddInsuranceForm({ onSubmit, loading = false }: AddInsur
   const [form] = Form.useForm();
   const [paymentType, setPaymentType] = useState<PaymentType>('lump');
 
-  const handleSubmit = (values: Record<string, any>) => {
+  const handleSubmit = (values: FormValues) => {
     const formData: CreateInsuranceData = {
       name: values.name,
       type: values.type,
@@ -24,7 +36,7 @@ export default function AddInsuranceForm({ onSubmit, loading = false }: AddInsur
       endDate: values.endDate.format('YYYY-MM-DD'),
       paymentType: values.paymentType,
       totalAmount: values.totalAmount,
-      installments: values.paymentType === 'installment' ? {
+      installments: values.paymentType === 'installment' && values.numberOfInstallments && values.amountPerInstallment && values.installmentStartDate ? {
         numberOfInstallments: values.numberOfInstallments,
         amountPerInstallment: values.amountPerInstallment,
         startDate: values.installmentStartDate.format('YYYY-MM-DD')
