@@ -4,6 +4,7 @@ import { Form, Input, Select, DatePicker, InputNumber, Button, Card, Divider } f
 import { PlusOutlined, } from '@ant-design/icons';
 import { CreateInsuranceData, PaymentType, InsuranceType } from '@/types/insurance';
 import { authMessages } from '@/utils/messages';
+import type { Dayjs } from 'dayjs';
 
 interface AddInsuranceFormProps {
   onSubmit: (data: CreateInsuranceData) => void;
@@ -13,13 +14,13 @@ interface AddInsuranceFormProps {
 interface FormValues {
   name: string;
   type: InsuranceType;
-  startDate: any; // dayjs object
-  endDate: any; // dayjs object
+  startDate: Dayjs;
+  endDate: Dayjs;
   paymentType: PaymentType;
   totalAmount: number;
   numberOfInstallments?: number;
   amountPerInstallment?: number;
-  installmentStartDate?: any; // dayjs object
+  installmentStartDate?: Dayjs;
 }
 
 const { Option } = Select;
