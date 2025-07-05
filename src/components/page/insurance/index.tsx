@@ -88,7 +88,7 @@ export default function InsurancePage() {
           const updatedInsurances = insurances.filter(ins => ins.id !== id);
           saveInsurances(updatedInsurances);
           message.success(authMessages.insurance.success.deleted);
-        } catch (error) {
+        } catch (_) {
           message.error(authMessages.insurance.error.delete);
         }
       }
