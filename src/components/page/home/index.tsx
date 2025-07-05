@@ -1,26 +1,70 @@
+"use client";
 import React from 'react';
-import { UserOutlined, FileTextOutlined, LikeOutlined } from '@ant-design/icons';
+import { UserOutlined, FileTextOutlined, LikeOutlined, LoginOutlined, UserAddOutlined } from '@ant-design/icons';
+import Link from 'next/link';
 import BaseHeader from '@/components/base/header';
 import BaseCard from '@/components/base/card';
 import BaseButton from '@/components/base/button';
+import { useAuth } from '@/hooks/useAuth';
 
 export default function HomePage() {
+  const { user, isAuthenticated, loading } = useAuth();
+
+  if (loading) {
+    return (
+      <>
+        <BaseHeader />
+        <main className="max-w-6xl mx-auto px-4 py-12">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+            <p className="mt-4 text-gray-600">در حال بارگذاری...</p>
+          </div>
+        </main>
+      </>
+    );
+  }
+
   return (
     <>
       <BaseHeader />
       <main className="max-w-6xl mx-auto px-4 py-12">
-        <section className="text-center mb-12">
-          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-4">
-            مدیریت هوشمند <span className="text-primary">بیمه‌های شخصی</span>
-          </h1>
-          <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
-            دیگر نگران فراموش کردن تاریخ انقضای بیمه‌هایتان نباشید. با یادآور بیمه، تمام بیمه‌های خود را در یک مکان مدیریت کنید.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <BaseButton size="large">افزودن یادآوری جدید</BaseButton>
-            <BaseButton variant="outline" size="large">مشاهده یادآوری‌ها</BaseButton>
-          </div>
-        </section>
+        {isAuthenticated ? (
+          // Authenticated user content
+          <section className="text-center mb-12">
+            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-4">
+              خوش آمدید، <span className="text-primary">{user?.fullName}</span>
+            </h1>
+            <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
+              مدیریت هوشمند بیمه‌های شخصی شما. دیگر نگران فراموش کردن تاریخ انقضای بیمه‌هایتان نباشید.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <BaseButton size="large">افزودن یادآوری جدید</BaseButton>
+              <BaseButton variant="outline" size="large">مشاهده یادآوری‌ها</BaseButton>
+            </div>
+          </section>
+        ) : (
+          // Unauthenticated user content
+          <section className="text-center mb-12">
+            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-4">
+              مدیریت هوشمند <span className="text-primary">بیمه‌های شخصی</span>
+            </h1>
+            <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
+              دیگر نگران فراموش کردن تاریخ انقضای بیمه‌هایتان نباشید. با یادآور بیمه، تمام بیمه‌های خود را در یک مکان مدیریت کنید.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Link href="/auth/login">
+                <BaseButton size="large" icon={<LoginOutlined />}>
+                  ورود به حساب کاربری
+                </BaseButton>
+              </Link>
+              <Link href="/auth/register">
+                <BaseButton variant="outline" size="large" icon={<UserAddOutlined />}>
+                  ثبت‌نام کنید
+                </BaseButton>
+              </Link>
+            </div>
+          </section>
+        )}
         <section className="mb-12">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <BaseCard>

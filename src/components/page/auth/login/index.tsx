@@ -3,7 +3,10 @@ import React from 'react';
 import { Form, Input, Button, Checkbox, Divider, message } from 'antd';
 import { UserOutlined, LockOutlined, GoogleOutlined, GithubOutlined } from '@ant-design/icons';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import BaseCard from '@/components/base/card';
+import { authMessages } from '@/utils/messages';
+import { useAuth } from '@/hooks/useAuth';
 
 interface LoginFormData {
   email: string;
@@ -12,22 +15,30 @@ interface LoginFormData {
 }
 
 export default function LoginPage() {
+  const router = useRouter();
+  const { login, loading } = useAuth();
+
   const onFinish = async (values: LoginFormData) => {
     try {
-      console.log('Login values:', values);
-      // TODO: Implement login logic
-      message.success('ورود موفقیت‌آمیز بود!');
+      const success = await login(values.email, values.password);
+      
+      if (success) {
+        message.success(authMessages.login.success);
+        router.push('/');
+      } else {
+        message.error(authMessages.login.error);
+      }
     } catch (error) {
-      message.error('خطا در ورود. لطفاً دوباره تلاش کنید.');
+      message.error(authMessages.login.error);
     }
   };
 
   const handleGoogleLogin = () => {
-    message.info('ورود با گوگل در حال توسعه...');
+    message.info(authMessages.login.googleComingSoon);
   };
 
   const handleGithubLogin = () => {
-    message.info('ورود با گیت‌هاب در حال توسعه...');
+    message.info(authMessages.login.githubComingSoon);
   };
 
   return (
@@ -39,8 +50,8 @@ export default function LoginPage() {
             <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
               <UserOutlined className="text-2xl text-white" />
             </div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">خوش آمدید</h2>
-            <p className="text-gray-600">لطفاً برای ادامه وارد حساب کاربری خود شوید</p>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">{authMessages.login.welcome}</h2>
+            <p className="text-gray-600">{authMessages.login.subtitle}</p>
           </div>
 
           {/* Login Form */}
@@ -53,30 +64,30 @@ export default function LoginPage() {
           >
             <Form.Item
               name="email"
-              label="ایمیل"
+              label={authMessages.login.email.label}
               rules={[
-                { required: true, message: 'لطفاً ایمیل خود را وارد کنید' },
-                { type: 'email', message: 'لطفاً ایمیل معتبر وارد کنید' }
+                { required: true, message: authMessages.login.email.required },
+                { type: 'email', message: authMessages.login.email.invalid }
               ]}
             >
               <Input 
                 prefix={<UserOutlined className="text-gray-400" />}
-                placeholder="example@email.com"
+                placeholder={authMessages.login.email.placeholder}
                 className="rounded-lg"
               />
             </Form.Item>
 
             <Form.Item
               name="password"
-              label="رمز عبور"
+              label={authMessages.login.password.label}
               rules={[
-                { required: true, message: 'لطفاً رمز عبور خود را وارد کنید' },
-                { min: 6, message: 'رمز عبور باید حداقل ۶ کاراکتر باشد' }
+                { required: true, message: authMessages.login.password.required },
+                { min: 6, message: authMessages.login.password.minLength }
               ]}
             >
               <Input.Password
                 prefix={<LockOutlined className="text-gray-400" />}
-                placeholder="رمز عبور خود را وارد کنید"
+                placeholder={authMessages.login.password.placeholder}
                 className="rounded-lg"
               />
             </Form.Item>
@@ -84,10 +95,10 @@ export default function LoginPage() {
             <Form.Item>
               <div className="flex items-center justify-between">
                 <Form.Item name="remember" valuePropName="checked" noStyle>
-                  <Checkbox>مرا به خاطر بسپار</Checkbox>
+                  <Checkbox>{authMessages.login.rememberMe}</Checkbox>
                 </Form.Item>
                 <Link href="/auth/forgot-password" className="text-primary hover:text-primary/80">
-                  فراموشی رمز عبور؟
+                  {authMessages.login.forgotPassword}
                 </Link>
               </div>
             </Form.Item>
@@ -96,16 +107,17 @@ export default function LoginPage() {
               <Button 
                 type="primary" 
                 htmlType="submit" 
+                loading={loading}
                 className="w-full h-12 rounded-lg font-medium"
               >
-                ورود
+                {authMessages.login.submitButton}
               </Button>
             </Form.Item>
           </Form>
 
           {/* Divider */}
           <Divider className="my-6">
-            <span className="text-gray-500">یا</span>
+            <span className="text-gray-500">{authMessages.login.divider}</span>
           </Divider>
 
           {/* Social Login */}
@@ -115,23 +127,23 @@ export default function LoginPage() {
               className="w-full h-12 rounded-lg border-gray-300 hover:border-primary"
               onClick={handleGoogleLogin}
             >
-              ورود با گوگل
+              {authMessages.login.googleLogin}
             </Button>
             <Button 
               icon={<GithubOutlined />} 
               className="w-full h-12 rounded-lg border-gray-300 hover:border-primary"
               onClick={handleGithubLogin}
             >
-              ورود با گیت‌هاب
+              {authMessages.login.githubLogin}
             </Button>
           </div>
 
           {/* Footer */}
           <div className="text-center mt-6">
             <p className="text-gray-600">
-              حساب کاربری ندارید؟{' '}
+              {authMessages.login.noAccount}{' '}
               <Link href="/auth/register" className="text-primary hover:text-primary/80 font-medium">
-                ثبت‌نام کنید
+                {authMessages.login.registerLink}
               </Link>
             </p>
           </div>

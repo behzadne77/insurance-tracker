@@ -4,7 +4,10 @@ import React from 'react';
 import { Form, Input, Button, Checkbox, Divider, message } from 'antd';
 import { UserOutlined, LockOutlined, MailOutlined, PhoneOutlined, GoogleOutlined, GithubOutlined } from '@ant-design/icons';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import BaseCard from '@/components/base/card';
+import { authMessages } from '@/utils/messages';
+import { useAuth } from '@/hooks/useAuth';
 
 interface RegisterFormData {
   fullName: string;
@@ -16,22 +19,35 @@ interface RegisterFormData {
 }
 
 export default function RegisterPage() {
+  const router = useRouter();
+  const { register, loading } = useAuth();
+
   const onFinish = async (values: RegisterFormData) => {
     try {
-      console.log('Register values:', values);
-      // TODO: Implement register logic
-      message.success('ثبت‌نام موفقیت‌آمیز بود!');
+      const success = await register({
+        fullName: values.fullName,
+        email: values.email,
+        phone: values.phone,
+        password: values.password
+      });
+
+      if (success) {
+        message.success(authMessages.register.success);
+        router.push('/');
+      } else {
+        message.error(authMessages.register.userExists);
+      }
     } catch (error) {
-      message.error('خطا در ثبت‌نام. لطفاً دوباره تلاش کنید.');
+      message.error(authMessages.register.error);
     }
   };
 
   const handleGoogleRegister = () => {
-    message.info('ثبت‌نام با گوگل در حال توسعه...');
+    message.info(authMessages.register.googleComingSoon);
   };
 
   const handleGithubRegister = () => {
-    message.info('ثبت‌نام با گیت‌هاب در حال توسعه...');
+    message.info(authMessages.register.githubComingSoon);
   };
 
   return (
@@ -43,8 +59,8 @@ export default function RegisterPage() {
             <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
               <UserOutlined className="text-2xl text-white" />
             </div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">ثبت‌نام</h2>
-            <p className="text-gray-600">حساب کاربری جدید ایجاد کنید</p>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">{authMessages.register.title}</h2>
+            <p className="text-gray-600">{authMessages.register.subtitle}</p>
           </div>
 
           {/* Register Form */}
@@ -57,87 +73,87 @@ export default function RegisterPage() {
           >
             <Form.Item
               name="fullName"
-              label="نام و نام خانوادگی"
+              label={authMessages.register.fullName.label}
               rules={[
-                { required: true, message: 'لطفاً نام و نام خانوادگی خود را وارد کنید' },
-                { min: 3, message: 'نام باید حداقل ۳ کاراکتر باشد' }
+                { required: true, message: authMessages.register.fullName.required },
+                { min: 3, message: authMessages.register.fullName.minLength }
               ]}
             >
               <Input 
                 prefix={<UserOutlined className="text-gray-400" />}
-                placeholder="نام و نام خانوادگی"
+                placeholder={authMessages.register.fullName.placeholder}
                 className="rounded-lg"
               />
             </Form.Item>
 
             <Form.Item
               name="email"
-              label="ایمیل"
+              label={authMessages.register.email.label}
               rules={[
-                { required: true, message: 'لطفاً ایمیل خود را وارد کنید' },
-                { type: 'email', message: 'لطفاً ایمیل معتبر وارد کنید' }
+                { required: true, message: authMessages.register.email.required },
+                { type: 'email', message: authMessages.register.email.invalid }
               ]}
             >
               <Input 
                 prefix={<MailOutlined className="text-gray-400" />}
-                placeholder="example@email.com"
+                placeholder={authMessages.register.email.placeholder}
                 className="rounded-lg"
               />
             </Form.Item>
 
             <Form.Item
               name="phone"
-              label="شماره موبایل"
+              label={authMessages.register.phone.label}
               rules={[
-                { required: true, message: 'لطفاً شماره موبایل خود را وارد کنید' },
-                { pattern: /^09\d{9}$/, message: 'لطفاً شماره موبایل معتبر وارد کنید' }
+                { required: true, message: authMessages.register.phone.required },
+                { pattern: /^09\d{9}$/, message: authMessages.register.phone.invalid }
               ]}
             >
               <Input 
                 prefix={<PhoneOutlined className="text-gray-400" />}
-                placeholder="09123456789"
+                placeholder={authMessages.register.phone.placeholder}
                 className="rounded-lg"
               />
             </Form.Item>
 
             <Form.Item
               name="password"
-              label="رمز عبور"
+              label={authMessages.register.password.label}
               rules={[
-                { required: true, message: 'لطفاً رمز عبور خود را وارد کنید' },
-                { min: 8, message: 'رمز عبور باید حداقل ۸ کاراکتر باشد' },
+                { required: true, message: authMessages.register.password.required },
+                { min: 8, message: authMessages.register.password.minLength },
                 { 
                   pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/, 
-                  message: 'رمز عبور باید شامل حروف بزرگ، کوچک و عدد باشد' 
+                  message: authMessages.register.password.pattern 
                 }
               ]}
             >
               <Input.Password
                 prefix={<LockOutlined className="text-gray-400" />}
-                placeholder="رمز عبور خود را وارد کنید"
+                placeholder={authMessages.register.password.placeholder}
                 className="rounded-lg"
               />
             </Form.Item>
 
             <Form.Item
               name="confirmPassword"
-              label="تکرار رمز عبور"
+              label={authMessages.register.confirmPassword.label}
               dependencies={['password']}
               rules={[
-                { required: true, message: 'لطفاً رمز عبور خود را تکرار کنید' },
+                { required: true, message: authMessages.register.confirmPassword.required },
                 ({ getFieldValue }) => ({
                   validator(_, value) {
                     if (!value || getFieldValue('password') === value) {
                       return Promise.resolve();
                     }
-                    return Promise.reject(new Error('رمز عبور و تکرار آن یکسان نیستند'));
+                    return Promise.reject(new Error(authMessages.register.confirmPassword.mismatch));
                   },
                 }),
               ]}
             >
               <Input.Password
                 prefix={<LockOutlined className="text-gray-400" />}
-                placeholder="رمز عبور خود را تکرار کنید"
+                placeholder={authMessages.register.confirmPassword.placeholder}
                 className="rounded-lg"
               />
             </Form.Item>
@@ -148,20 +164,20 @@ export default function RegisterPage() {
               rules={[
                 {
                   validator: (_, value) =>
-                    value ? Promise.resolve() : Promise.reject(new Error('لطفاً قوانین و شرایط را بپذیرید')),
+                    value ? Promise.resolve() : Promise.reject(new Error(authMessages.register.agreeToTerms.required)),
                 },
               ]}
             >
               <Checkbox>
                 <span className="text-sm">
                   <Link href="/terms" className="text-primary hover:text-primary/80">
-                    قوانین و شرایط
+                    {authMessages.register.agreeToTerms.text}
                   </Link>
                   {' '}و{' '}
                   <Link href="/privacy" className="text-primary hover:text-primary/80">
-                    حریم خصوصی
+                    {authMessages.register.agreeToTerms.privacy}
                   </Link>
-                  {' '}را می‌پذیرم
+                  {' '}{authMessages.register.agreeToTerms.accept}
                 </span>
               </Checkbox>
             </Form.Item>
@@ -170,16 +186,17 @@ export default function RegisterPage() {
               <Button 
                 type="primary" 
                 htmlType="submit" 
+                loading={loading}
                 className="w-full h-12 rounded-lg font-medium"
               >
-                ثبت‌نام
+                {authMessages.register.submitButton}
               </Button>
             </Form.Item>
           </Form>
 
           {/* Divider */}
           <Divider className="my-6">
-            <span className="text-gray-500">یا</span>
+            <span className="text-gray-500">{authMessages.register.divider}</span>
           </Divider>
 
           {/* Social Register */}
@@ -189,23 +206,23 @@ export default function RegisterPage() {
               className="w-full h-12 rounded-lg border-gray-300 hover:border-primary"
               onClick={handleGoogleRegister}
             >
-              ثبت‌نام با گوگل
+              {authMessages.register.googleRegister}
             </Button>
             <Button 
               icon={<GithubOutlined />} 
               className="w-full h-12 rounded-lg border-gray-300 hover:border-primary"
               onClick={handleGithubRegister}
             >
-              ثبت‌نام با گیت‌هاب
+              {authMessages.register.githubRegister}
             </Button>
           </div>
 
           {/* Footer */}
           <div className="text-center mt-6">
             <p className="text-gray-600">
-              قبلاً حساب کاربری دارید؟{' '}
+              {authMessages.register.hasAccount}{' '}
               <Link href="/auth/login" className="text-primary hover:text-primary/80 font-medium">
-                وارد شوید
+                {authMessages.register.loginLink}
               </Link>
             </p>
           </div>
